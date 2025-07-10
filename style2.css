@@ -1,18 +1,18 @@
 /* --- Global Settings & Variables --- */
 :root {
-    --primary-green: #008374; /* A deep, professional green */
-    --light-green: #e6f3f1;   /* A very light green for backgrounds */
-    --accent-green: #2dbd96;  /* A bright green for highlights and interactions */
+    --primary-green: #008374;
+    --light-green: #e6f3f1;
+    --accent-green: #2dbd96;
     --white: #ffffff;
-    --text-dark: #2c3e50;      /* A soft, dark gray for text */
-    --text-light: #7f8c8d;     /* A lighter gray for secondary text */
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
     --border-color: #e0e7e6;
     --shadow-light: rgba(45, 189, 150, 0.1);
     --shadow-medium: rgba(45, 189, 150, 0.2);
     --font-family: 'Noto Sans JP', sans-serif;
 }
 
-/* --- Base Styles & Background Animation --- */
+/* --- Base Styles --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -24,39 +24,17 @@ body {
     background-color: var(--light-green);
     color: var(--text-dark);
     line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
-/* Simple and elegant particle animation with pure CSS */
-@keyframes move-particles {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-100vh); }
-}
-
-#background-animation {
+/* --- Background Animation Container --- */
+#tsparticles {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: -1;
-    overflow: hidden;
-}
-
-#background-animation::before {
-    content: '';
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    background: transparent;
-    box-shadow: 
-        10vw 20vh 0px var(--accent-green), 80vw 30vh 1px var(--accent-green),
-        30vw 90vh 1px var(--accent-green), 50vw 50vh 0px var(--accent-green),
-        90vw 70vh 1px var(--accent-green), 25vw 60vh 0px var(--accent-green),
-        70vw 10vh 1px var(--accent-green), 40vw 80vh 0px var(--accent-green),
-        60vw 40vh 1px var(--accent-green), 5vw 95vh 0px var(--accent-green);
-    animation: move-particles 25s linear infinite;
-    top: 100vh;
 }
 
 /* --- Main Layout --- */
@@ -64,6 +42,8 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .main-header {
@@ -86,9 +66,10 @@ body {
 /* --- Grid for Portal Sections --- */
 .portal-grid {
     display: grid;
-    /* This creates a responsive grid that fits as many 350px columns as possible */
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 1.5rem;
+    /* This prevents items from stretching to match the tallest item in the row */
+    align-items: start;
 }
 
 /* --- Portal Section Card Styling --- */
@@ -97,23 +78,66 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 15px var(--shadow-light);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
-    /* This helps contain the child elements */
     display: flex;
     flex-direction: column;
+    /* This is for the pickup transition */
+    will-change: transform, opacity;
 }
 
-.portal-section:hover {
+.portal-section:hover:not(.is-picked-up) {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px var(--shadow-medium);
 }
 
-/* Style for when an item is being dragged */
 .portal-section.dragging {
     opacity: 0.5;
     border: 2px dashed var(--accent-green);
     transform: scale(1.05);
 }
+
+/* --- Pickup View Styles --- */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.portal-section.is-picked-up {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.1);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.portal-section.is-picked-up .section-content {
+    display: block; /* Force content to show */
+}
+
+/* Placeholder to prevent layout shift when an item is picked up */
+.placeholder {
+    background-color: transparent;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+}
+
 
 /* --- Section Header --- */
 .section-header {
@@ -122,6 +146,11 @@ body {
     padding: 1rem 1.25rem;
     cursor: pointer;
     border-bottom: 1px solid var(--border-color);
+    position: relative; /* For z-index to work */
+    z-index: 2;
+    background-color: var(--white);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
 .section-icon {
@@ -136,9 +165,7 @@ body {
     flex-grow: 1;
     font-size: 1.2rem;
     font-weight: 700;
-    outline: none; /* Remove outline on focus */
-    border: none;
-    background: transparent;
+    outline: none;
     padding: 5px;
     border-radius: 5px;
     transition: background-color 0.2s;
@@ -147,6 +174,7 @@ body {
 .section-title[contenteditable="true"]:focus {
     background-color: var(--light-green);
     box-shadow: 0 0 0 2px var(--accent-green);
+    cursor: text;
 }
 
 .toggle-button {
@@ -158,33 +186,22 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* Rotate arrow when section is open */
-.portal-section.is-open .toggle-button i {
+.portal-section.is-picked-up .toggle-button i {
     transform: rotate(180deg);
 }
 
+
 /* --- Section Content (Links) --- */
 .section-content {
-    /* Smooth accordion effect */
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-    padding: 0 1.25rem;
-}
-
-/* Style for when section is open */
-.portal-section.is-open .section-content {
-    max-height: 1000px; /* Large enough to show all content */
     padding: 1rem 1.25rem;
+    display: none; /* Hide by default, show on pickup */
+    background-color: var(--white);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 
-.section-content ul {
-    list-style: none;
-}
-
-.section-content li {
-    margin-bottom: 0.5rem;
-}
+.section-content ul { list-style: none; }
+.section-content li { margin-bottom: 0.5rem; }
 
 .section-content a {
     color: var(--text-dark);
@@ -194,7 +211,6 @@ body {
     padding: 0.25rem 0;
     transition: color 0.2s ease;
 }
-
 .section-content a::after {
     content: '';
     position: absolute;
@@ -207,64 +223,39 @@ body {
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
 }
-
-.section-content a:hover {
-    color: var(--primary-green);
-}
-
+.section-content a:hover { color: var(--primary-green); }
 .section-content a:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
-
 .section-content a i {
     margin-left: 0.5rem;
     font-size: 0.8em;
     color: var(--text-light);
 }
-
 .disabled-link {
     color: var(--text-light);
     cursor: not-allowed;
-    pointer-events: none; /* Make it unclickable */
+    pointer-events: none;
 }
-
-.disabled-link::after {
-    display: none; /* No underline effect for disabled links */
-}
+.disabled-link::after { display: none; }
 
 /* --- Nested Lists (details/summary) --- */
-details {
-    padding-left: 1rem;
-}
-
-details > ul {
-    padding-left: 1.5rem;
-    margin-top: 0.5rem;
-}
-
+details { padding-left: 1rem; }
+details > ul { padding-left: 1.5rem; margin-top: 0.5rem; }
 summary {
     cursor: pointer;
     font-weight: 700;
-    list-style-type: '▼ '; /* Custom marker */
+    list-style-type: '▼ ';
 }
-
-details[open] > summary {
-    list-style-type: '▲ ';
-}
+details[open] > summary { list-style-type: '▲ '; }
 
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-    }
-
-    .main-header h1 {
-        font-size: 2.2rem;
-    }
-
-    .portal-grid {
-        /* On smaller screens, stack the cards in a single column */
-        grid-template-columns: 1fr;
+    .container { padding: 1rem; }
+    .main-header h1 { font-size: 2.2rem; }
+    .portal-grid { grid-template-columns: 1fr; }
+    .portal-section.is-picked-up {
+        transform: translate(-50%, -50%) scale(1); /* No scale on mobile */
     }
 }
