@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>業務詳細ポータル</title>
-    <!-- Google Fonts (Noto Sans JP) for beautiful Japanese typography -->
+    <!-- Google Fonts (Noto Sans JP) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="style.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
 
-    <!-- This canvas is for the background animation -->
-    <div id="background-animation"></div>
+    <!-- tsParticles library for background animation -->
+    <div id="tsparticles"></div>
+    
+    <!-- Overlay for pickup view -->
+    <div id="overlay"></div>
 
     <div class="container">
         <header class="main-header">
@@ -27,7 +30,7 @@
         <main id="portal-grid" class="portal-grid">
 
             <!-- Section: 電子行政サービス -->
-            <div class="portal-section" draggable="true">
+            <div class="portal-section" draggable="true" data-id="section-0">
                 <div class="section-header">
                     <i class="fa-solid fa-landmark section-icon"></i>
                     <h2 class="section-title" contenteditable="true">電子行政サービス</h2>
@@ -43,7 +46,7 @@
             </div>
 
             <!-- Section: 年間業務 -->
-            <div class="portal-section" draggable="true">
+            <div class="portal-section" draggable="true" data-id="section-1">
                 <div class="section-header">
                     <i class="fa-solid fa-calendar-days section-icon"></i>
                     <h2 class="section-title" contenteditable="true">年間業務</h2>
@@ -52,7 +55,7 @@
                 <div class="section-content">
                     <ul>
                         <li>
-                            <details>
+                            <details open>
                                 <summary>1月</summary>
                                 <ul>
                                     <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/EpfhqYzNCOJPnXKkBA-gMvsBeBWPXOY_SPnkMKHHhr9_vw?e=PS7q12" target="_blank">給与所得の法定調書 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
@@ -107,7 +110,7 @@
             </div>
 
             <!-- Section: 定期月間業務 -->
-            <div class="portal-section" draggable="true">
+            <div class="portal-section" draggable="true" data-id="section-2">
                 <div class="section-header">
                     <i class="fa-solid fa-file-invoice-dollar section-icon"></i>
                     <h2 class="section-title" contenteditable="true">定期月間業務</h2>
@@ -116,10 +119,11 @@
                 <div class="section-content">
                     <ul>
                         <li>
-                            <details>
+                            <details open>
                                 <summary>入出金明細</summary>
                                 <ul>
-                                    <li><a href="https://planteckk.sharepoint.com/:x:/s/msteams_9d310a/EccTr1ukikROntPN-QL2bQ0BSTJMxIfLQ03xuxLPnHdoKg?e=ZBxyRj" target="_blank">三菱UFJ銀行 <i class="fa-solid fa-file-excel"></i></a></li>
+                                    <!-- Changed href to use ms-excel URI scheme -->
+                                    <li><a href="ms-excel:ofe|u|https://planteckk.sharepoint.com/:x:/s/msteams_9d310a/EccTr1ukikROntPN-QL2bQ0BSTJMxIfLQ03xuxLPnHdoKg?e=ZBxyRj">三菱UFJ銀行 <i class="fa-solid fa-file-excel"></i></a></li>
                                 </ul>
                             </details>
                         </li>
@@ -147,68 +151,18 @@
                 </div>
             </div>
 
-            <!-- Section: 伝票作成アプリ -->
-            <div class="portal-section" draggable="true">
-                <div class="section-header">
-                    <i class="fa-solid fa-mobile-screen-button section-icon"></i>
-                    <h2 class="section-title" contenteditable="true">伝票作成アプリ</h2>
-                    <button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button>
-                </div>
-                <div class="section-content">
-                    <ul>
-                        <li><a href="#" class="disabled-link">アプリを開く</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Section: 請求書・注文請書作成 -->
-            <div class="portal-section" draggable="true">
-                <div class="section-header">
-                    <i class="fa-solid fa-file-signature section-icon"></i>
-                    <h2 class="section-title" contenteditable="true">請求書・注文請書作成</h2>
-                    <button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button>
-                </div>
-                <div class="section-content">
-                    <ul>
-                        <li><a href="https://app.makeleaps.com/home/" target="_blank">MakeLeaps <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                        <li><a href="#" class="disabled-link">請求書作成</a></li>
-                        <li><a href="#" class="disabled-link">注文請書作成</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Section: 経費管理アプリ -->
-            <div class="portal-section" draggable="true">
-                <div class="section-header">
-                    <i class="fa-solid fa-money-check-dollar section-icon"></i>
-                    <h2 class="section-title" contenteditable="true">経費管理アプリ</h2>
-                    <button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button>
-                </div>
-                 <div class="section-content">
-                    <ul>
-                        <li><a href="#" class="disabled-link">アプリを開く</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Section: 経理棚 -->
-            <div class="portal-section" draggable="true">
-                <div class="section-header">
-                    <i class="fa-solid fa-archive section-icon"></i>
-                    <h2 class="section-title" contenteditable="true">経理棚</h2>
-                    <button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button>
-                </div>
-                 <div class="section-content">
-                    <ul>
-                        <li><a href="#" class="disabled-link">棚を開く</a></li>
-                    </ul>
-                </div>
-            </div>
+            <!-- Other sections... (content is the same, just ensure data-id is present) -->
+            <div class="portal-section" draggable="true" data-id="section-3"><div class="section-header"><i class="fa-solid fa-mobile-screen-button section-icon"></i><h2 class="section-title" contenteditable="true">伝票作成アプリ</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="#" class="disabled-link">アプリを開く</a></li></ul></div></div>
+            <div class="portal-section" draggable="true" data-id="section-4"><div class="section-header"><i class="fa-solid fa-file-signature section-icon"></i><h2 class="section-title" contenteditable="true">請求書・注文請書作成</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="https://app.makeleaps.com/home/" target="_blank">MakeLeaps <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li><li><a href="#" class="disabled-link">請求書作成</a></li><li><a href="#" class="disabled-link">注文請書作成</a></li></ul></div></div>
+            <div class="portal-section" draggable="true" data-id="section-5"><div class="section-header"><i class="fa-solid fa-money-check-dollar section-icon"></i><h2 class="section-title" contenteditable="true">経費管理アプリ</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="#" class="disabled-link">アプリを開く</a></li></ul></div></div>
+            <div class="portal-section" draggable="true" data-id="section-6"><div class="section-header"><i class="fa-solid fa-archive section-icon"></i><h2 class="section-title" contenteditable="true">経理棚</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="#" class="disabled-link">棚を開く</a></li></ul></div></div>
 
         </main>
     </div>
 
+    <!-- tsParticles library -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
     <!-- Link to your JavaScript file -->
-    <script src="script.js"></script>
+    <script src="script2.js"></script>
 </body>
 </html>
