@@ -21,17 +21,47 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     margin: 0;
-    /* The gradient background is now on the body itself */
     background: linear-gradient(60deg, var(--primary-green) 0%, var(--accent-green) 100%);
 }
+
+/* --- User Icon Styles (New Addition) --- */
+.user-icon-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 101; /* Ensure it's above the overlay */
+    /* Entrance Animation */
+    animation: zoomInFromTop 0.8s 0.5s ease-out backwards; /* 0.5s delay */
+}
+
+.user-icon {
+    font-size: 24px;
+    color: var(--primary-green);
+    background-color: var(--white);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-icon:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
 
 /* --- Wave Header / Background --- */
 .header {
     position: absolute;
-    bottom: 0; /* Position waves at the bottom of the viewport */
+    bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 1; /* Behind page content */
+    z-index: 1;
 }
 
 .waves {
@@ -46,12 +76,12 @@ body {
 /* --- Page Content Wrapper --- */
 .page-content {
     position: relative;
-    z-index: 2; /* In front of the wave background */
-    background-color: transparent; /* Make it transparent to see the body background */
+    z-index: 2;
+    background-color: transparent;
 }
 
 .inner-header {
-    height: 35vh; /* Adjusted height for the title area */
+    height: 35vh;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -72,7 +102,6 @@ body {
     letter-spacing: 2px;
     font-size: 48px;
     margin-bottom: 0.5rem;
-    /* Flicker animation added */
     animation: flicker 4s infinite alternate;
 }
 
@@ -90,7 +119,7 @@ body {
     padding: 2rem;
     position: relative;
     z-index: 1;
-    background-color: var(--light-green); /* Cards sit on this background */
+    background-color: var(--light-green);
 }
 
 /* --- Grid for Portal Sections --- */
@@ -122,7 +151,7 @@ body {
 .portal-section.is-picked-up .section-content { display: block; }
 .placeholder { background-color: transparent; border: 2px dashed var(--border-color); border-radius: 12px; }
 
-/* --- Section Header & Content (No changes from previous version) --- */
+/* --- Section Header & Content --- */
 .section-header { display: flex; align-items: center; padding: 1rem 1.25rem; cursor: pointer; border-bottom: 1px solid var(--border-color); position: relative; z-index: 2; background-color: var(--white); border-top-left-radius: 12px; border-top-right-radius: 12px; }
 .section-icon { color: var(--primary-green); font-size: 1.5rem; margin-right: 1rem; width: 30px; text-align: center; }
 .section-title { flex-grow: 1; font-size: 1.2rem; font-weight: 700; outline: none; padding: 5px; border-radius: 5px; transition: background-color 0.2s; }
@@ -156,7 +185,6 @@ details[open] > summary { list-style-type: '▲ '; }
     100% { transform: translate3d(85px,0,0); }
 }
 
-/* New Flicker Animation */
 @keyframes flicker {
   0%, 18%, 22%, 25%, 53%, 57%, 100% {
     text-shadow:
@@ -173,6 +201,19 @@ details[open] > summary { list-style-type: '▲ '; }
   }
 }
 
+/* User Icon Entrance Animation (New Addition) */
+@keyframes zoomInFromTop {
+    from {
+        opacity: 0;
+        transform: scale(0.1) translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
     .inner-header { height: 30vh; }
@@ -181,4 +222,6 @@ details[open] > summary { list-style-type: '▲ '; }
     .container { padding: 1rem; }
     .portal-grid { grid-template-columns: 1fr; }
     .portal-section.is-picked-up { transform: translate(-50%, -50%) scale(1); }
+    .user-icon-container { top: 15px; left: 15px; }
+    .user-icon { width: 45px; height: 45px; font-size: 20px;}
 }
