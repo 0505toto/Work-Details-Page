@@ -4,165 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>業務詳細ポータル</title>
-    <!-- Google Fonts (Noto Sans JP) -->
+    <!-- Google Fonts (Noto Sans JP & Lato for wave header) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style4.css">
 </head>
 <body>
 
-    <!-- tsParticles library for background animation -->
-    <div id="tsparticles"></div>
-    
     <!-- Overlay for pickup view -->
     <div id="overlay"></div>
 
-    <div class="container">
-        <header class="main-header">
-            <h1>業務ポータル</h1>
-            <p>各項目はドラッグ＆ドロップで移動、クリックで編集できます。</p>
-        </header>
+    <!-- New Wave Header -->
+    <div class="header">
+        <!-- Content before waves -->
+        <div class="inner-header flex">
+            <!-- Your existing header content is moved here -->
+            <header class="main-header">
+                <h1>業務ポータル</h1>
+                <p>各項目はドラッグ＆ドロップで移動、クリックで編集できます。</p>
+            </header>
+        </div>
 
-        <main id="portal-grid" class="portal-grid">
-
-            <!-- Section: 電子行政サービス -->
-            <div class="portal-section" draggable="true" data-id="section-0">
-                <div class="section-header">
-                    <i class="fa-solid fa-landmark section-icon"></i>
-                    <h2 class="section-title" contenteditable="true">電子行政サービス</h2>
-                    <button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button>
-                </div>
-                <div class="section-content">
-                    <ul>
-                        <li><a href="https://login.e-tax.nta.go.jp/login/reception/loginCorporate" target="_blank">e-Tax <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                        <li><a href="https://www.eltax.lta.go.jp/" target="_blank">el-TAX <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                        <li><a href="https://shinsei.e-gov.go.jp/" target="_blank">e-Gov <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Section: 年間業務 -->
-            <div class="portal-section" draggable="true" data-id="section-1">
-                <div class="section-header">
-                    <i class="fa-solid fa-calendar-days section-icon"></i>
-                    <h2 class="section-title" contenteditable="true">年間業務</h2>
-                    <button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button>
-                </div>
-                <div class="section-content">
-                    <ul>
-                        <li>
-                            <details open>
-                                <summary>1月</summary>
-                                <ul>
-                                    <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/EpfhqYzNCOJPnXKkBA-gMvsBeBWPXOY_SPnkMKHHhr9_vw?e=PS7q12" target="_blank">給与所得の法定調書 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                                    <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Eui_33FLNMRAjSGSecea4sEB3j90M2Z9KR8Gmq2Rq78_dQ?e=8T5S40" target="_blank">償却資産申告書 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>2月</summary>
-                                <ul>
-                                    <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Ej1ZUsADLSBElFZej7qLCIEBNpvEIFE2pgZ4A_9mopBV2A?e=44evUF" target="_blank">建設業・経審(PT) <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>4月</summary>
-                                <ul>
-                                    <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/EpWhpo0aeLlMmZrsrcslYoABCSgbp6iZaONumr6lANOiIw?e=sUohWb" target="_blank">固定資産税関係 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>5月</summary>
-                                <ul>
-                                    <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/EpWhpo0aeLlMmZrsrcslYoABCSgbp6iZaONumr6lANOiIw?e=sUohWb" target="_blank">固定資産税関係 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                                </ul>
-                            </details>
-                        </li>
-                         <li>
-                            <details>
-                                <summary>6月</summary>
-                                <ul>
-                                    <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Eg6_H_MoLnZKlIgoFV-N4LMBFMC810401n6YUagdeTDYdg?e=XXcWEY" target="_blank">労働保険 年度更新 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                                    <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Emf2aUTuILBIu7w_MO2owvEB2my7GIh4TojOqhsOnNbQQQ?e=iyywga" target="_blank">納期特例(DK) <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>12月</summary>
-                                <ul>
-                                    <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Eovjsnn9XeNNi1s7t999eycBoLzGOi-wLqNj4XYLbj3SsA?e=cJClXq" target="_blank">年末調整 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                                    <li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Emf2aUTuILBIu7w_MO2owvEB2my7GIh4TojOqhsOnNbQQQ?e=iyywga" target="_blank">納期特例(DK) <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                                </ul>
-                            </details>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Section: 定期月間業務 -->
-            <div class="portal-section" draggable="true" data-id="section-2">
-                <div class="section-header">
-                    <i class="fa-solid fa-file-invoice-dollar section-icon"></i>
-                    <h2 class="section-title" contenteditable="true">定期月間業務</h2>
-                    <button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button>
-                </div>
-                <div class="section-content">
-                    <ul>
-                        <li>
-                            <details open>
-                                <summary>入出金明細</summary>
-                                <ul>
-                                    <!-- Changed href to use ms-excel URI scheme -->
-                                    <li><a href="ms-excel:ofe|u|https://planteckk.sharepoint.com/:x:/s/msteams_9d310a/EccTr1ukikROntPN-QL2bQ0BSTJMxIfLQ03xuxLPnHdoKg?e=ZBxyRj">三菱UFJ銀行 <i class="fa-solid fa-file-excel"></i></a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li>
-                            <details>
-                                <summary>未検収</summary>
-                                <ul>
-                                    <li><a href="#" class="disabled-link">HZ</a></li>
-                                    <li><a href="#" class="disabled-link">直需</a></li>
-                                </ul>
-                            </details>
-                        </li>
-                         <li>
-                            <details>
-                                <summary>源泉税</summary>
-                                <ul>
-                                    <li><a href="#" class="disabled-link">PT</a></li>
-                                    <li><a href="#" class="disabled-link">DK</a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li><a href="#" class="disabled-link">財形貯蓄</a></li>
-                        <li><a href="#" class="disabled-link">自落ち</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Other sections... (content is the same, just ensure data-id is present) -->
-            <div class="portal-section" draggable="true" data-id="section-3"><div class="section-header"><i class="fa-solid fa-mobile-screen-button section-icon"></i><h2 class="section-title" contenteditable="true">伝票作成アプリ</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="#" class="disabled-link">アプリを開く</a></li></ul></div></div>
-            <div class="portal-section" draggable="true" data-id="section-4"><div class="section-header"><i class="fa-solid fa-file-signature section-icon"></i><h2 class="section-title" contenteditable="true">請求書・注文請書作成</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="https://app.makeleaps.com/home/" target="_blank">MakeLeaps <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li><li><a href="#" class="disabled-link">請求書作成</a></li><li><a href="#" class="disabled-link">注文請書作成</a></li></ul></div></div>
-            <div class="portal-section" draggable="true" data-id="section-5"><div class="section-header"><i class="fa-solid fa-money-check-dollar section-icon"></i><h2 class="section-title" contenteditable="true">経費管理アプリ</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="#" class="disabled-link">アプリを開く</a></li></ul></div></div>
-            <div class="portal-section" draggable="true" data-id="section-6"><div class="section-header"><i class="fa-solid fa-archive section-icon"></i><h2 class="section-title" contenteditable="true">経理棚</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="#" class="disabled-link">棚を開く</a></li></ul></div></div>
-
-        </main>
+        <!-- Waves Container -->
+        <div>
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7)" />
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+                </g>
+            </svg>
+        </div>
+        <!-- Waves end -->
     </div>
+    <!-- Header ends -->
 
-    <!-- tsParticles library -->
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+    <!-- Main Content Starts -->
+    <div class="content-wrapper">
+        <div class="container">
+            <main id="portal-grid" class="portal-grid">
+                <!-- Portal Sections will be here -->
+                <div class="portal-section" draggable="true" data-id="section-0"><div class="section-header"><i class="fa-solid fa-landmark section-icon"></i><h2 class="section-title" contenteditable="true">電子行政サービス</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="https://login.e-tax.nta.go.jp/login/reception/loginCorporate" target="_blank">e-Tax <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li><li><a href="https://www.eltax.lta.go.jp/" target="_blank">el-TAX <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li><li><a href="https://shinsei.e-gov.go.jp/" target="_blank">e-Gov <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li></ul></div></div>
+                <div class="portal-section" draggable="true" data-id="section-1"><div class="section-header"><i class="fa-solid fa-calendar-days section-icon"></i><h2 class="section-title" contenteditable="true">年間業務</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><details open><summary>1月</summary><ul><li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/EpfhqYzNCOJPnXKkBA-gMvsBeBWPXOY_SPnkMKHHhr9_vw?e=PS7q12" target="_blank">給与所得の法定調書 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li><li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Eui_33FLNMRAjSGSecea4sEB3j90M2Z9KR8Gmq2Rq78_dQ?e=8T5S40" target="_blank">償却資産申告書 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li></ul></details></li><li><details><summary>2月</summary><ul><li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Ej1ZUsADLSBElFZej7qLCIEBNpvEIFE2pgZ4A_9mopBV2A?e=44evUF" target="_blank">建設業・経審(PT) <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li></ul></details></li><li><details><summary>4月</summary><ul><li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/EpWhpo0aeLlMmZrsrcslYoABCSgbp6iZaONumr6lANOiIw?e=sUohWb" target="_blank">固定資産税関係 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li></ul></details></li><li><details><summary>5月</summary><ul><li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/EpWhpo0aeLlMmZrsrcslYoABCSgbp6iZaONumr6lANOiIw?e=sUohWb" target="_blank">固定資産税関係 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li></ul></details></li><li><details><summary>6月</summary><ul><li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Eg6_H_MoLnZKlIgoFV-N4LMBFMC810401n6YUagdeTDYdg?e=XXcWEY" target="_blank">労働保険 年度更新 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li><li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Emf2aUTuILBIu7w_MO2owvEB2my7GIh4TojOqhsOnNbQQQ?e=iyywga" target="_blank">納期特例(DK) <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li></ul></details></li><li><details><summary>12月</summary><ul><li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Eovjsnn9XeNNi1s7t999eycBoLzGOi-wLqNj4XYLbj3SsA?e=cJClXq" target="_blank">年末調整 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li><li><a href="https://planteckk.sharepoint.com/:f:/s/msteams_9d310a/Emf2aUTuILBIu7w_MO2owvEB2my7GIh4TojOqhsOnNbQQQ?e=iyywga" target="_blank">納期特例(DK) <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li></ul></details></li></ul></div></div>
+                <div class="portal-section" draggable="true" data-id="section-2"><div class="section-header"><i class="fa-solid fa-file-invoice-dollar section-icon"></i><h2 class="section-title" contenteditable="true">定期月間業務</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><details open><summary>入出金明細</summary><ul><li><a href="ms-excel:ofe|u|https://planteckk.sharepoint.com/:x:/s/msteams_9d310a/EccTr1ukikROntPN-QL2bQ0BSTJMxIfLQ03xuxLPnHdoKg?e=ZBxyRj">三菱UFJ銀行 <i class="fa-solid fa-file-excel"></i></a></li></ul></details></li><li><details><summary>未検収</summary><ul><li><a href="#" class="disabled-link">HZ</a></li><li><a href="#" class="disabled-link">直需</a></li></ul></details></li><li><details><summary>源泉税</summary><ul><li><a href="#" class="disabled-link">PT</a></li><li><a href="#" class="disabled-link">DK</a></li></ul></details></li><li><a href="#" class="disabled-link">財形貯蓄</a></li><li><a href="#" class="disabled-link">自落ち</a></li></ul></div></div>
+                <div class="portal-section" draggable="true" data-id="section-3"><div class="section-header"><i class="fa-solid fa-mobile-screen-button section-icon"></i><h2 class="section-title" contenteditable="true">伝票作成アプリ</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="#" class="disabled-link">アプリを開く</a></li></ul></div></div>
+                <div class="portal-section" draggable="true" data-id="section-4"><div class="section-header"><i class="fa-solid fa-file-signature section-icon"></i><h2 class="section-title" contenteditable="true">請求書・注文請書作成</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="https://app.makeleaps.com/home/" target="_blank">MakeLeaps <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li><li><a href="#" class="disabled-link">請求書作成</a></li><li><a href="#" class="disabled-link">注文請書作成</a></li></ul></div></div>
+                <div class="portal-section" draggable="true" data-id="section-5"><div class="section-header"><i class="fa-solid fa-money-check-dollar section-icon"></i><h2 class="section-title" contenteditable="true">経費管理アプリ</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="#" class="disabled-link">アプリを開く</a></li></ul></div></div>
+                <div class="portal-section" draggable="true" data-id="section-6"><div class="section-header"><i class="fa-solid fa-archive section-icon"></i><h2 class="section-title" contenteditable="true">経理棚</h2><button class="toggle-button"><i class="fa-solid fa-chevron-down"></i></button></div><div class="section-content"><ul><li><a href="#" class="disabled-link">棚を開く</a></li></ul></div></div>
+            </main>
+        </div>
+    </div>
+    <!-- Main Content Ends -->
+
     <!-- Link to your JavaScript file -->
-    <script src="script3.js"></script>
+    <script src="script4.js"></script>
 </body>
 </html>
