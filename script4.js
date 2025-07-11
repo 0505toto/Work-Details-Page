@@ -4,7 +4,6 @@
  * - タイトル編集機能
  * - ドラッグ＆ドロップによる並び替え機能
  * - 状態のlocalStorageへの保存・復元機能
- * - tsParticlesによる背景アニメーション
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let placeholder = null; // ピックアップ時のプレースホルダー要素
 
     // --- 2. 機能の初期化 ---
-    initializeParticles();
     loadState();
 
     // 各セクションにイベントリスナーを設定
@@ -63,17 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
             section.classList.remove('is-picked-up');
             overlay.classList.remove('is-active');
             
-            // プレースホルダーを元の要素に戻す
             if (placeholder) {
                 placeholder.replaceWith(section);
                 placeholder = null;
             }
-            // ドラッグ可能に戻す
             section.setAttribute('draggable', 'true');
 
         } else {
             // --- ピックアップを実行 ---
-            // プレースホルダーを作成して元の位置に挿入
             placeholder = document.createElement('div');
             placeholder.className = 'placeholder';
             placeholder.style.height = `${section.offsetHeight}px`;
@@ -82,11 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
             section.classList.add('is-picked-up');
             overlay.classList.add('is-active');
             
-            // ★★★ 修正点 ★★★
-            // 要素をbodyの直下に移動させることで、オーバーレイよりも確実に手前に表示させる
             document.body.appendChild(section); 
             
-            // ピックアップ中はドラッグ不可にする
             section.setAttribute('draggable', 'false');
         }
     }
@@ -115,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function setupDragAndDrop(section) {
         section.addEventListener('dragstart', () => {
-            // ピックアップされている要素はドラッグさせない
             if(section.classList.contains('is-picked-up')) return;
             section.classList.add('dragging');
         });
@@ -166,13 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
             order: [],
             titles: {}
         };
-        // is-picked-upではない通常の要素、またはプレースホルダーの位置にあるべき要素の順で保存
         const sectionsOnGrid = portalGrid.querySelectorAll('.portal-section:not(.is-picked-up), .placeholder');
         
         sectionsOnGrid.forEach(el => {
             let id;
             if (el.classList.contains('placeholder')) {
-                // プレースホルダーがある場合、ピックアップ中の要素のIDを取得
                 const pickedUp = document.querySelector('.is-picked-up');
                 if (pickedUp) id = pickedUp.dataset.id;
             } else {
@@ -193,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadState() {
         const savedStateJSON = localStorage.getItem('businessPortalState');
         if (!savedStateJSON) {
-            // 初回訪問時、各セクションにIDを割り振る
             document.querySelectorAll('.portal-section').forEach((section, index) => {
                 if (!section.dataset.id) section.dataset.id = `section-${index}`;
             });
@@ -224,71 +212,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-    }
-
-    // --- 5. 背景アニメーションの初期化 ---
-    function initializeParticles() {
-        tsParticles.load("tsparticles", {
-            fpsLimit: 60,
-            interactivity: {
-                events: {
-                    onHover: {
-                        enable: true,
-                        mode: "grab",
-                    },
-                    resize: true,
-                },
-                modes: {
-                    grab: {
-                        distance: 140,
-                        links: {
-                            opacity: 1,
-                        },
-                    },
-                },
-            },
-            particles: {
-                color: {
-                    value: "#008374", // Primary green color
-                },
-                links: {
-                    color: "#008374",
-                    distance: 150,
-                    enable: true,
-                    opacity: 0.5,
-                    width: 1,
-                },
-                collisions: {
-                    enable: true,
-                },
-                move: {
-                    direction: "none",
-                    enable: true,
-                    outModes: {
-                        default: "bounce",
-                    },
-                    random: false,
-                    speed: 1,
-                    straight: false,
-                },
-                number: {
-                    density: {
-                        enable: true,
-                        area: 800,
-                    },
-                    value: 80,
-                },
-                opacity: {
-                    value: 0.5,
-                },
-                shape: {
-                    type: "circle",
-                },
-                size: {
-                    value: { min: 1, max: 5 },
-                },
-            },
-            detectRetina: true,
-        });
     }
 });
