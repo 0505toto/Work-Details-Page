@@ -24,36 +24,48 @@ body {
     background: linear-gradient(60deg, var(--primary-green) 0%, var(--accent-green) 100%);
 }
 
-/* --- User Icon Styles (New Addition) --- */
+/* --- User Icon Styles --- */
 .user-icon-container {
     position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 101; /* Ensure it's above the overlay */
-    /* Entrance Animation */
-    animation: zoomInFromTop 0.8s 0.5s ease-out backwards; /* 0.5s delay */
+    z-index: 101;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
 }
 
 .user-icon {
-    font-size: 24px;
-    color: var(--primary-green);
-    background-color: var(--white);
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    object-fit: cover; /* Ensures the image covers the circle */
+    background-color: var(--white);
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.user-icon:hover {
+.user-icon-container:hover .user-icon {
     transform: scale(1.15);
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
+/* --- Click Animation Element Styles --- */
+#icon-zoom-effect {
+    position: fixed;
+    z-index: 200; /* Highest z-index */
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    transform-origin: center center;
+    pointer-events: none; /* Prevent this element from being clicked */
+    display: none; /* Hidden by default */
+}
+
+#icon-zoom-effect.is-animating {
+    display: block;
+    animation: zoomOutAndFade 0.8s ease-in-out forwards;
+}
 
 /* --- Wave Header / Background --- */
 .header {
@@ -63,95 +75,23 @@ body {
     width: 100%;
     z-index: 1;
 }
-
-.waves {
-    position: relative;
-    width: 100%;
-    height: 15vh;
-    margin-bottom: -7px;
-    min-height: 100px;
-    max-height: 150px;
-}
-
-/* --- Page Content Wrapper --- */
-.page-content {
-    position: relative;
-    z-index: 2;
-    background-color: transparent;
-}
-
-.inner-header {
-    height: 35vh;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.main-header {
-    text-align: center;
-    color: var(--white);
-}
-
-.main-header h1 {
-    font-family: var(--font-family-header);
-    font-weight: 300;
-    letter-spacing: 2px;
-    font-size: 48px;
-    margin-bottom: 0.5rem;
-    animation: flicker 4s infinite alternate;
-}
-
-.main-header p {
-    font-family: var(--font-family-header);
-    letter-spacing: 1px;
-    font-size: 1.1rem;
-    opacity: 0.8;
-}
-
-/* --- Main Layout in Content Area --- */
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
-    position: relative;
-    z-index: 1;
-    background-color: var(--light-green);
-}
-
-/* --- Grid for Portal Sections --- */
-.portal-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 1.5rem;
-    align-items: start;
-}
-
-/* --- Portal Section Card Styling --- */
-.portal-section {
-    background-color: var(--white);
-    border-radius: 12px;
-    box-shadow: 0 4px 15px var(--shadow-light);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    will-change: transform, opacity;
-    z-index: 10;
-}
+/* ... Other styles remain the same ... */
+.waves { position: relative; width: 100%; height: 15vh; margin-bottom: -7px; min-height: 100px; max-height: 150px; }
+.page-content { position: relative; z-index: 2; background-color: transparent; }
+.inner-header { height: 35vh; width: 100%; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; text-align: center; }
+.main-header { text-align: center; color: var(--white); }
+.main-header h1 { font-family: var(--font-family-header); font-weight: 300; letter-spacing: 2px; font-size: 48px; margin-bottom: 0.5rem; animation: flicker 4s infinite alternate; }
+.main-header p { font-family: var(--font-family-header); letter-spacing: 1px; font-size: 1.1rem; opacity: 0.8; }
+.container { max-width: 1400px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; background-color: var(--light-green); }
+.portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; align-items: start; }
+.portal-section { background-color: var(--white); border-radius: 12px; box-shadow: 0 4px 15px var(--shadow-light); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; will-change: transform, opacity; z-index: 10; }
 .portal-section:hover:not(.is-picked-up) { transform: translateY(-5px); box-shadow: 0 8px 25px var(--shadow-medium); }
 .portal-section.dragging { opacity: 0.5; border: 2px dashed var(--accent-green); transform: scale(1.05); }
-
-/* --- Pickup View Styles --- */
 #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); opacity: 0; visibility: hidden; z-index: 99; transition: opacity 0.4s ease, visibility 0.4s ease; }
 #overlay.is-active { opacity: 1; visibility: visible; }
 .portal-section.is-picked-up { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.1); width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; z-index: 100; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
 .portal-section.is-picked-up .section-content { display: block; }
 .placeholder { background-color: transparent; border: 2px dashed var(--border-color); border-radius: 12px; }
-
-/* --- Section Header & Content --- */
 .section-header { display: flex; align-items: center; padding: 1rem 1.25rem; cursor: pointer; border-bottom: 1px solid var(--border-color); position: relative; z-index: 2; background-color: var(--white); border-top-left-radius: 12px; border-top-right-radius: 12px; }
 .section-icon { color: var(--primary-green); font-size: 1.5rem; margin-right: 1rem; width: 30px; text-align: center; }
 .section-title { flex-grow: 1; font-size: 1.2rem; font-weight: 700; outline: none; padding: 5px; border-radius: 5px; transition: background-color 0.2s; }
@@ -179,40 +119,20 @@ details[open] > summary { list-style-type: '▲ '; }
 .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
 .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
 .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+@keyframes move-forever { 0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); } }
+@keyframes flicker { 0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 5px rgba(255,255,255,0.8), 0 0 15px rgba(255,255,255,0.8), 0 0 25px rgba(255,255,255,0.8), 0 0 40px var(--accent-green), 0 0 70px var(--accent-green); opacity: 1; } 20%, 24%, 55% { text-shadow: none; opacity: 0.9; } }
 
-@keyframes move-forever {
-    0% { transform: translate3d(-90px,0,0); }
-    100% { transform: translate3d(85px,0,0); }
-}
-
-@keyframes flicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% {
-    text-shadow:
-      0 0 5px rgba(255,255,255,0.8),
-      0 0 15px rgba(255,255,255,0.8),
-      0 0 25px rgba(255,255,255,0.8),
-      0 0 40px var(--accent-green),
-      0 0 70px var(--accent-green);
-    opacity: 1;
-  }
-  20%, 24%, 55% {
-    text-shadow: none;
-    opacity: 0.9;
-  }
-}
-
-/* User Icon Entrance Animation (New Addition) */
-@keyframes zoomInFromTop {
+/* New Click Animation */
+@keyframes zoomOutAndFade {
     from {
-        opacity: 0;
-        transform: scale(0.1) translateY(-100px);
+        transform: scale(1);
+        opacity: 0.8;
     }
     to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: scale(40); /* Adjust scale to fill the screen */
+        opacity: 0;
     }
 }
-
 
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
@@ -222,6 +142,5 @@ details[open] > summary { list-style-type: '▲ '; }
     .container { padding: 1rem; }
     .portal-grid { grid-template-columns: 1fr; }
     .portal-section.is-picked-up { transform: translate(-50%, -50%) scale(1); }
-    .user-icon-container { top: 15px; left: 15px; }
-    .user-icon { width: 45px; height: 45px; font-size: 20px;}
+    .user-icon-container { top: 15px; left: 15px; width: 45px; height: 45px; }
 }
