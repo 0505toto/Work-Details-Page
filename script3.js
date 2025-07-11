@@ -81,7 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             section.classList.add('is-picked-up');
             overlay.classList.add('is-active');
-            portalGrid.appendChild(section); // DOMの構造上、gridの最後に移動してfixed配置
+            
+            // ★★★ 修正点 ★★★
+            // 要素をbodyの直下に移動させることで、オーバーレイよりも確実に手前に表示させる
+            document.body.appendChild(section); 
             
             // ピックアップ中はドラッグ不可にする
             section.setAttribute('draggable', 'false');
